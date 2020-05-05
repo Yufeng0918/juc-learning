@@ -17,3 +17,10 @@
 ## Thread Pool
 - reuse the thread
 - mange number of thread in pool
+- thread per task
+    + overhead of creation of thread
+    + unlimited tasks to create too much thread
+ - thread pool
+    + no overhead of creation and destroy thread
+    + manage CPU and memory
+    + central management
