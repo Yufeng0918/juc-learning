@@ -15,6 +15,7 @@
 ***    
     
 ## Thread Pool
+#### Overview
 - reuse the thread
 - mange number of thread in pool
 - thread per task
@@ -23,4 +24,19 @@
  - thread pool
     + no overhead of creation and destroy thread
     + manage CPU and memory
-    + central management
+    + central management of pool
+- scenario
+    + server
+    + more than 5 threads
+#### Parameters
+- corePoolSize
+    + after thread pool initialization, there is no thread
+    + wait for coming tasks to create thread to reach core pool size
+- maxPoolSize
+    + max thread in pool
+    + create additional threads after workQueue is full
++ keepAliveTime
++ workQueue
++ threadFactory
++ RejectedExecutionHandler
+![](images/Jietu20200505-233518.png)
