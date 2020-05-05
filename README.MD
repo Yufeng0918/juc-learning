@@ -12,4 +12,8 @@
 - thread coordination
     + CountDownLatch, Semaphore
     + AQS
+***    
     
+## Thread Pool
+- reuse the thread
+- mange number of thread in pool
