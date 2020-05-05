@@ -28,6 +28,8 @@
 - scenario
     + server
     + more than 5 threads
+- only scale up when work queue is full
+- if workQueue does not has limit, then will not reach maximum thread size  
 #### Parameters
 - corePoolSize
     + after thread pool initialization, there is no thread
@@ -35,8 +37,14 @@
 - maxPoolSize
     + max thread in pool
     + create additional threads after workQueue is full
-+ keepAliveTime
-+ workQueue
-+ threadFactory
-+ RejectedExecutionHandler
+- keepAliveTime: thread idle over keepAliveTime when thread size is greater than core pool size
+- workQueue
+    + store task
+    + SynchronousQueue: no capacity
+    + LinkedBlockingQueue: unbounded queue
+    + ArrayBlockingQueue: bounded queue
+    + recommended create thread pool manually
+- threadFactory: default is Executors.defaultThreadFactory(), define the thread name, prority, daemon
+- RejectedExecutionHandler
+
 ![](images/Jietu20200505-233518.png)
