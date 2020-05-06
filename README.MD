@@ -65,3 +65,4 @@
 - isShutdown: indicate if shutdown executed
 - isTerminate: thread pool destroy
 - awaitTermination: test if task will be done after period
+#### Rejection Policy
