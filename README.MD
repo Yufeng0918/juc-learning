@@ -66,3 +66,51 @@
 - isTerminate: thread pool destroy
 - awaitTermination: test if task will be done after period
 #### Rejection Policy
+- case
+    + after shutdown
+    + exceeded queue capacity and reach max pool
+- policy
+    + AbortPolicy: throw exception after submit task
+    + DiscardPolicy: throw task without notification
+    + DiscardOldestPolicy: throw the oldest task
+    + CallerRunsPolicy: the caller execute task
+#### Hook
+- beforeExecute: hook before execution the task
+```java
+public class PauseableThreadPool extends ThreadPoolExecutor {
+    @Override
+    protected void beforeExecute(Thread t, Runnable r) {
+        super.beforeExecute(t, r);
+        lock.lock();
+        try {
+            while (isPause) {
+                unpause.await();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
+        }
+    }
+}
+```
+#### Status
+- running
+- shutdown: will not accept new task
+- stop: no new task, no handle for pending task
+- tidying: all task done, going to execute terminate() 
+- terminated: terminate() done
+#### Implementation
+- thread pool management
+- working thread
+- task queue: must be thread safe
+- task interface
+![](images/Jietu20200506-232240.png)
+- Executors: util tools to create thread pool
+- Executor: execute() to execute task
+- ExecutorService: shutdown()
+- Thread pick up task from task queue, get the Runnable to execute run()
+- execute()
+    + if number of thread less than core pool size, creat thread
+    + if less than core pool size, put task into queue, create thread if there is no worker thread
+    + reject the task
