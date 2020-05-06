@@ -40,11 +40,28 @@
 - keepAliveTime: thread idle over keepAliveTime when thread size is greater than core pool size
 - workQueue
     + store task
-    + SynchronousQueue: no capacity
+    + SynchronousQueue: no capacity: caused OOM is workQueue is too large, e.g. FixedThreadPool, SingleThreadPool
     + LinkedBlockingQueue: unbounded queue
     + ArrayBlockingQueue: bounded queue
     + recommended create thread pool manually
 - threadFactory: default is Executors.defaultThreadFactory(), define the thread name, prority, daemon
 - RejectedExecutionHandler
-
 ![](images/Jietu20200505-233518.png)
+#### Types
+- FixedThreadPool: LinkedBlockingQueue does not have limit bound, may cause OOM, 0s keepAlive Time
+- SingleThreadPool: LinkedBlockingQueue does not have limit bound, may cause OOM, 0s keepAlive Time
+- CachedThreadPool: SynchronizedQueue only contains 1 task, idle thread destroy unlimited thread may cause OOM, 60s keepAlive Time
+- ScheduleThreadPool: schedule one time or periodic task, 60s keepAlive Time, DelayWorkingQueue
+- WorkStealingPool: task has child task
+- Create Thread Pool based on scenarios
+![](images/Jietu20200506-222612.png)
+#### Core size/Max size
+- CPU bounded: calculation, hash, core size is twice of number of CPU cores
+- IO bounded: multiple times of cores, most time CPU is waiting for IO
+- thread number = core * (1 + waiting time/working time)
+#### Shutdown
+- shutdown: shutdown after executing task and waiting task done
+- shutdownNow: interrupt executing task, 
+- isShutdown: indicate if shutdown executed
+- isTerminate: thread pool destroy
+- awaitTermination: test if task will be done after period
