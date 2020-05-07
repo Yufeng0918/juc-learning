@@ -119,6 +119,9 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
 ## Thread
 #### Scenario
 - each thread exclusive owe tools utils
-- each thread contains global variable to avoid parameter passing, different method in same request
+    + initalValue to init utils
+- each thread contains global variable to avoid parameter passing, different method in same request'
+    + set in first time
+    + get in subsequent
 #### SimpleDateFormat
 - refer to cache calendar object which is not thread safe

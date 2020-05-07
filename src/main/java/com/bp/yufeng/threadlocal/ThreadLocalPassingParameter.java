@@ -1,7 +1,9 @@
 package com.bp.yufeng.threadlocal;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -23,7 +25,7 @@ public class ThreadLocalPassingParameter {
 class Service1 {
 
     public void process() {
-        User user = new User("SG");
+        User user = new User(UUID.randomUUID().toString());
         UserContextHolder.holder.set(user);
         new Service2().process();
     }
@@ -53,6 +55,7 @@ class UserContextHolder {
 }
 
 @AllArgsConstructor
+@ToString
 class User {
     private String name;
 }
