@@ -141,3 +141,34 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
     + invoke remove() to avoid memory leak
 - if key collision, find the next empty slot
 ![](images/Jietu20200507-142259.png)
+***
+
+## Lock
+#### Overview
+- lock access to shared resource
+- lock and synchronized but lock does not replace synchronized
+- why not synchronized
+    + bad performance: no timeout, no interrupted
+    + no shared resource lock
+    + no idea if get the lock
+- why lock
+    + lock(): manually unlock, exception will not release lock
+    + tryLock(): return immediate, true if success, false is can't acquire lock
+    + tryLock(long time, TimeUnit unit): try acquire lock in certain period
+    + lockInterruptibly(): thread interrupted during waiting for lock or having lock
+- happens-before: lock and unlock is visible to all thread
+![](images/可见性2.png)
+#### Category
+- Pessimistic lock, Optimistic lock
+- shared lock, exclusive lock
+- fair lock, unfair lock
+- ReentrantLock, non ReentrantLock
+- Interpretable lock, non Interpretable lock
+- self spin lock, non self spin lock
+#### Pessimistic vs Optimistic
+- Pessimistic
+    + exclusive lock, blocking thread and notify thread
+    + thread maybe blocked forever
+- Optimistic
+    + does not lock, check before update
+    + CAS, e.g. git
