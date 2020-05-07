@@ -136,4 +136,8 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
 - threadLocalMap contains different threadLocal
 - get(): passing the threadLocal object to find object
 - set(): save object to threadLocalMap which key is threadLocal
+- key is WeakReference<ThreadLocal>, value is strong Reference
+    + if thread is never stop, key may GC but not value, JVM gc value if key is null
+    + invoke remove() to avoid memory leak
+- if key collision, find the next empty slot
 ![](images/Jietu20200507-142259.png)
