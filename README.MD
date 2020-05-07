@@ -125,3 +125,15 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
     + get in subsequent
 #### SimpleDateFormat
 - refer to cache calendar object which is not thread safe
+#### Benefit
+- Thread safe
+- no lock, more efficient
+- save memory space
+- avoid pass parameter for every layers
+#### Implementation
+- method: initialValue, set, get, remove
+- thread has threadLocalMap
+- threadLocalMap contains different threadLocal
+- get(): passing the threadLocal object to find object
+- set(): save object to threadLocalMap which key is threadLocal
+![](images/Jietu20200507-142259.png)
