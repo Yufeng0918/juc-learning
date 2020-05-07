@@ -114,3 +114,11 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
     + if number of thread less than core pool size, creat thread
     + if less than core pool size, put task into queue, create thread if there is no worker thread
     + reject the task
+***
+
+## Thread
+#### Scenario
+- each thread exclusive owe tools utils
+- each thread contains global variable to avoid parameter passing, different method in same request
+#### SimpleDateFormat
+- refer to cache calendar object which is not thread safe
