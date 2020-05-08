@@ -169,6 +169,30 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
 - Pessimistic
     + exclusive lock, blocking thread and notify thread
     + thread maybe blocked forever
+    + case: locking period is long, avoid self spin, high concurrent
 - Optimistic
     + does not lock, check before update
     + CAS, e.g. git
+    + case: read is much more than write
+#### ReentrantLock
+- ReentrantLock: same lock may get lock if this lock owed 
+#### Fair lock vs unFair lock
+- fair: FIFO but may cause the starvation
+- unfair
+    + allow the jumping queue in specific time
+    + java default is unfair to improve performance
+    + decrease performance
+#### Shared lock vs Exclusive lock
+- shared lock
+    + ReentrantReadLock, increase performance for read
+    + readonly, no update
+- exclusive lock: ReentrantWriteLock
+    + write lock is exclusive, only one thread owe lock
+    + only one write lock
+- one thread write or multiple threads read
+- one lock which is lock by different way
+- fair mode: disallow thread the jumping queue which may cause starvation
+- unfair mode: 
+    + allow write thread jump queue
+    + allow read thread jump queue only when wait queue's header is not write thread
+- allow lock downgrade but not upgrade
