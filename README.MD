@@ -44,7 +44,7 @@
     + LinkedBlockingQueue: unbounded queue
     + ArrayBlockingQueue: bounded queue
     + recommended create thread pool manually
-- threadFactory: default is Executors.defaultThreadFactory(), define the thread name, prority, daemon
+- threadFactory: default is Executors.defaultThreadFactory(), define the thread name, priority, daemon
 - RejectedExecutionHandler
 ![](images/Jietu20200505-233518.png)
 #### Types
@@ -196,3 +196,26 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
     + allow write thread jump queue
     + allow read thread jump queue only when wait queue's header is not write thread
 - allow lock downgrade but not upgrade
+#### Self Spin vs Block
+- Self Spin
+    - may wait for short period to get lock
+    - cost thread context swap maybe higher than self spin
+    - thread does not give up CPU time slot
+    - if lock is hold only, self spin will consume the CPU resource
+    + do while  + CAS
+***
+
+## Atomic
+#### Atomic operation
+- thread safe
+- lock in smaller scope, in variable level
+- higher performance except the high competition
+#### Category
+![](images/6类原子类纵览.png)
+#### AtomicIntegr
+- get()
+- getAndSet(int newValue)
+- getAndIncrement()/getAndDecrement()
+- compareAndSet(int expect, int update)
+#### AtomicIntegerFiledUpdater
+- only apply atomic operation in certain scenario
