@@ -219,3 +219,14 @@ public class PauseableThreadPool extends ThreadPoolExecutor {
 - compareAndSet(int expect, int update)
 #### AtomicIntegerFiledUpdater
 - only apply atomic operation in certain scenario
+- does not support static
+#### Adder, Accumulator 
+- better performance than atomicLong
+- segment lock
+- atomicLong vs longAdder
+    + atomicLong: local cache flush to shared cache
+    + longAdder: different thread hold different count
+        + base variable: directly add if less competition
+        + cell[]: each thread add into cell[i]
+        + sum = base + each cell[i]
+- Accumulator: execution sequence is not sensitive for parallel computing
